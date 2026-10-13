@@ -15,7 +15,7 @@ const CONFIG = {
 
 // Keep the +05:30 offset: it pins the moment to IST no matter where her phone is.
 
-birthdayDate: new Date("2026-10-14T00:00:00+05:30").toISOString(),
+birthdayDate: new Date(Date.now()+5000).toISOString(),
 
   countdown: {
     curtainTitle: "Rimpa's Birthday ✨",
