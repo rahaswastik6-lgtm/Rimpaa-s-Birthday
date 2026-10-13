@@ -1,0 +1,136 @@
+--- a/css/style.css	2026-10-13 14:15:00.004926154 +0000
++++ b/css/style.css	2026-10-13 14:15:59.865148607 +0000
+@@ -504,3 +504,55 @@
+   background:radial-gradient(ellipse at 50% 45%,rgba(255,226,160,.3),rgba(251,246,239,0) 70%);animation:pgxGlow .5s ease-out both}   /* faint golden light while the page fades */
+ @keyframes pgxGlow{from{opacity:0}}
+ @media (prefers-reduced-motion:reduce){#pgx,html.pgx-out::after{display:none}}
++
++/* =====================================================================
++   EASTER EGG — one tiny hidden sunflower on the welcome page (script.js → EGG). Optional, never blocks the page:
++   the sunflower is a small button tucked in the card's bottom-right padding (clear of "Let's begin"); the note is fixed, has no backdrop,
++   and can be closed. Cream + soft gold border + muted greens, same palette as the rest of the sunflower theme.
++   ===================================================================== */
++.egg{position:absolute;right:8px;bottom:6px;z-index:2;width:44px;height:44px;margin:0;padding:0;border:0;border-radius:50%;background:none;
++  display:grid;place-items:center;cursor:pointer;opacity:.72;transition:opacity .3s,transform .3s;-webkit-tap-highlight-color:transparent}
++.egg-bloom{display:block;width:26px;height:26px;overflow:visible;rotate:14deg;transition:rotate .4s,filter .4s}
++.egg:hover,.egg:focus-visible{opacity:1}
++.egg:hover .egg-bloom{rotate:-6deg}
++.egg.poke .egg-bloom{animation:eggPoke .42s ease}
++.egg.found{opacity:1;cursor:default}.egg.found .egg-bloom{filter:drop-shadow(0 0 6px rgba(244,197,66,.75))}
++@keyframes eggPoke{30%{transform:scale(1.28) rotate(-12deg)}65%{transform:scale(.94) rotate(8deg)}}
++
++.egg-note{position:fixed;top:68px;left:50%;z-index:10;width:min(calc(100vw - 32px),340px);padding:28px 22px 18px;text-align:center;
++  background:linear-gradient(#fffdf6,var(--sf-cream,#FFF9EE));border:1px solid rgba(232,170,34,.6);border-radius:16px;
++  box-shadow:0 18px 36px -16px rgba(82,100,58,.45),0 2px 6px rgba(74,58,63,.08);
++  opacity:0;transform:translate(-50%,-8px);pointer-events:none;transition:opacity .4s ease,transform .4s ease}
++.egg-note::before{content:"";position:absolute;inset:5px;border:1px solid rgba(232,170,34,.22);border-radius:11px;pointer-events:none}   /* soft inner paper edge */
++.egg-note.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
++.egg-note-bloom{position:absolute;left:50%;top:-19px;width:38px;height:38px;margin-left:-19px;overflow:visible;rotate:-8deg;filter:drop-shadow(0 2px 3px rgba(122,81,40,.25))}
++.egg-msg{position:relative;font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.55;color:var(--ink);overflow-wrap:anywhere}
++.egg-rule{display:block;width:44px;height:1px;margin:12px auto 10px;background:var(--sf-green,#788A4A);opacity:.7}
++.egg-x{position:relative;min-height:40px;padding:6px 20px;border:1px solid rgba(120,138,74,.6);border-radius:999px;background:transparent;
++  font:inherit;font-size:.9rem;color:var(--sf-green-d,#52643A);cursor:pointer;transition:background .2s}
++.egg-x:hover{background:rgba(120,138,74,.12)}
++.egg-x:focus-visible,.egg:focus-visible{outline:3px solid var(--sf-green-d,#52643A);outline-offset:2px}
++
++/* =====================================================================
++   SCRAPBOOK MEMORY CARDS — styling only (no markup or text changes). Scoped to the memories page.
++   Warm paper with a thin gold mat edge, a strip of washi tape, the photo as a small print with a slight counter-tilt, a soft highlighter
++   under the handwritten date. Tape sits above the photo's top edge; the existing leaf sprigs stay behind the photo. Nothing covers an image or a caption.
++   ===================================================================== */
++body[data-page="memories"] .mem{background:linear-gradient(180deg,#fffdf8,#fcf5e6);border:1px solid rgba(232,170,34,.2);border-radius:6px;
++  box-shadow:inset 0 0 0 5px #fffdf8,inset 0 0 0 6px rgba(232,170,34,.2),0 1px 2px rgba(74,58,63,.1),0 14px 26px -14px rgba(74,58,63,.42);
++  transition:transform .35s ease,box-shadow .35s ease}
++body[data-page="memories"] .mem:hover,body[data-page="memories"] .mem:focus-within{
++  box-shadow:inset 0 0 0 5px #fffdf8,inset 0 0 0 6px rgba(232,170,34,.26),0 2px 4px rgba(74,58,63,.1),0 22px 34px -16px rgba(74,58,63,.5)}
++body[data-page="memories"] .mem::before{content:"";position:absolute;top:-11px;left:50%;z-index:2;width:62px;height:18px;margin-left:-31px;pointer-events:none;
++  background:linear-gradient(rgba(248,215,90,.62),rgba(244,197,66,.5));box-shadow:0 1px 2px rgba(74,58,63,.12);
++  clip-path:polygon(0 0,4% 18%,0 36%,4% 54%,0 72%,4% 100%,96% 100%,100% 72%,96% 54%,100% 36%,96% 18%,100% 0);
++  transform:rotate(calc(var(--r)*-1.3));transition:transform .35s ease}
++body[data-page="memories"] .mem:nth-child(even)::before{background:linear-gradient(rgba(150,166,104,.55),rgba(120,138,74,.45))}
++body[data-page="memories"] .mem:hover::before{transform:rotate(0)}
++body[data-page="memories"] .mem .polaroid{padding:5px;border-radius:3px;background:#fff;rotate:calc(var(--r)*-.3);
++  box-shadow:0 1px 3px rgba(74,58,63,.28),0 8px 14px -8px rgba(74,58,63,.4);transition:transform .35s,rotate .35s}
++body[data-page="memories"] .mem:hover .polaroid{rotate:0deg}
++body[data-page="memories"] .mem .date{display:inline-block;margin-top:6px;padding:0 .35em;font-size:1.35rem;line-height:1.3;rotate:-1.5deg;
++  background:linear-gradient(transparent 60%,rgba(244,197,66,.36) 60% 88%,transparent 88%)}
++body[data-page="memories"] .mem:nth-child(even) .date{rotate:1.2deg}
++@media (max-width:480px){body[data-page="memories"] .mem::before{width:54px;margin-left:-27px}}
+--- a/js/script.js	2026-10-13 14:15:00.004973986 +0000
++++ b/js/script.js	2026-10-13 14:15:12.797797947 +0000
+@@ -224,6 +224,48 @@
+     };
+   })();
+ 
++  /* ---------- EASTER EGG · one tiny hidden sunflower on the welcome page ----------
++     Optional and non-blocking: three taps on the same sunflower reveal a small card (fixed, no backdrop, closeable, Esc closes).
++     After the reveal it stops counting and never shows a second card. Never navigates. "" when theme.sunflower is false. */
++  const EGG = (() => {
++    const K = Object.assign({ message: "Congratulations 😂 You've discovered the most unnecessary feature of this website. 🌻", closeLabel: "Close", needed: 3 }, C.easterEgg);
++    const on = !C.theme || C.theme.sunflower !== false;
++    const bloom = (cls) => {                              // self-contained little sunflower (no shared <symbol> needed)
++      let a = "", b = "";
++      for (let k = 0; k < 14; k++) a += `<ellipse cx="50" cy="25" rx="6.5" ry="22" transform="rotate(${k * 25.7} 50 50)" fill="#E8AA22"/>`;
++      for (let k = 0; k < 14; k++) b += `<ellipse cx="50" cy="28" rx="6" ry="18" transform="rotate(${k * 25.7 + 12.85} 50 50)" fill="#F4C542"/>`;
++      return `<svg class="${cls}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${a}${b}<circle cx="50" cy="50" r="16" fill="#6b4524"/><circle cx="50" cy="50" r="10" fill="#4a2f18"/></svg>`;
++    };
++    const html = () => on ? `<button type="button" class="egg" aria-label="A tiny sunflower">${bloom("egg-bloom")}</button>` : "";
++    const init = host => {
++      const btn = host && host.querySelector(".egg"); if (!btn) return;
++      let n = 0, done = false, note = null;
++      const close = () => {
++        if (!note) return;
++        const el = note; note = null; document.removeEventListener("keydown", esc);
++        el.classList.remove("on"); setTimeout(() => el.remove(), reduced ? 0 : 400);
++        btn.focus({ preventScroll: true });
++      };
++      const esc = e => { if (e.key === "Escape") close(); };
++      const reveal = () => {
++        done = true; btn.classList.add("found"); btn.setAttribute("aria-label", "The sunflower you found");
++        note = document.createElement("div"); note.className = "egg-note"; note.setAttribute("role", "status");
++        note.innerHTML = `${bloom("egg-note-bloom")}<p class="egg-msg"></p><i class="egg-rule" aria-hidden="true"></i><button type="button" class="egg-x"></button>`;
++        note.querySelector(".egg-msg").textContent = K.message;       // textContent: the message is shown exactly as written
++        const x = note.querySelector(".egg-x"); x.textContent = K.closeLabel; x.addEventListener("click", close);
++        document.body.appendChild(note); void note.offsetWidth; note.classList.add("on");
++        document.addEventListener("keydown", esc);
++      };
++      btn.addEventListener("click", () => {
++        if (done) return;                                  // already revealed: stop counting, never a second card
++        n++;
++        btn.classList.remove("poke"); void btn.offsetWidth; btn.classList.add("poke");
++        if (n >= K.needed) reveal();
++      });
++    };
++    return { html, init };
++  })();
++
+   /* ---------- pages ---------- */
+   const views = {
+     /* ★ NEW — countdown → 17 burns → 18 → curtains open → lock(). Birthday comes ONLY from config.js */
+@@ -401,8 +443,9 @@
+       const w = C.welcome;
+       app.innerHTML = `<section class="card center"><p class="hand">${w.label}</p><h1>Hey, ${C.herName} ✨</h1>
+         <p class="sub">${w.subtitle}</p>${photo(w.photo, "A photo for you", "big tilt")}
+-        <p class="lead">${w.line}</p><p class="msg">${w.message.join("<br>")}</p>${next(w.button)}${SFX.welcome()}</section>`;
++        <p class="lead">${w.line}</p><p class="msg">${w.message.join("<br>")}</p>${next(w.button)}${SFX.welcome()}${EGG.html()}</section>`;
+       SFX.fit(app.querySelector(".card"));
++      EGG.init(app.querySelector(".card"));
+     },
+ 
+     memories() {
+--- a/js/config.js	2026-10-13 14:15:00.005416666 +0000
++++ b/js/config.js	2026-10-13 14:15:12.798087753 +0000
+@@ -108,6 +108,13 @@
+   },
+ 
+ 
++  // EASTER EGG — the tiny hidden sunflower on the welcome page (3 taps). Optional; delete this block to use the built-in text.
++  easterEgg: {
++    message: "Congratulations 😂 You've discovered the most unnecessary feature of this website. 🌻",
++    closeLabel: "Close"
++  },
++
++
+   // PAGE 3 — memories
+   memories: {
+ 
